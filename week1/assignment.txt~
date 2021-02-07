@@ -1,0 +1,9 @@
+intial thought was to use Data.List.permutations
+in let n = 10 in map f (permutations [1..n]) 
+as let n = 10 in map f (Data.List.permutations [1..n])
+after loading first.hs to see the result of 1..5 permutations which is 120.
+As suggested in a hint for the permutation function itself
+length (map length xss)
+
+f z xs = map (insert at x) (take (lenght xs) [0..1])
+(\y -> insert z y xs)

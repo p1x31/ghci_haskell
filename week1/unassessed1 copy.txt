@@ -1,0 +1,161 @@
+Unassessed, mandatory exercise 1 (Wed 28 Sep, deadline Thursday 29 Sep)
+-----------------------------------------------------------------------
+
+Do this in the lab with the help of demonstrators, or in your own time
+own your own. To do this on your own machine instead, you have to
+first install the Haskell Platform. It is fine to take your own
+machine to the lab, of course.
+
+The purpose of this unassessed, mandatory assignement is to
+familiarize yourself with the Haskell interpreter ghci, which we will
+use for all assessed and unassessed assignments in the module.
+
+Resources
+---------
+
+The mandatory textbook (see Facebook, or the Canvas announcements) or
+the supporting free book Learn you a Haskell for Great Good.
+
+Explore any of them to solve the exercise.
+
+In particular, check http://www.cs.nott.ac.uk/~pszgmh/Slides.zip
+
+We are looking at the first slide, discussed in the first lecture.
+
+Tasks
+-----
+
+Consider the following Haskell program
+
+f [] = []
+f (x:xs) = f ys ++ [x] ++ f zs
+  where ys = [a | a <- xs, a <= x]
+        zs = [a | a <- xs, a >  x]
+
+Indentation matters, so be careful when you type it.
+
+Oh, I didn't type it exactly as it was in the last page of the 1st
+slide. Does it matter?
+
+Task 1
+------
+
+Type this program in a file called first.hs in a suitable directory or
+your choice.
+
+Use your favourite text editor.
+
+Task 2
+------
+
+Open a terminal, and change to the directory where first.hs is.
+
+Then run "ghci". This is our Haskell interpreter.
+
+Load your file first.hs by writing ":load first.hs"
+
+Run it by typing "f [3,2,1,0]"
+
+You should get the answer [0,1,2,3].
+
+As we discussed in the lecture, f is a version of QuickSort.
+
+Type ":type f".
+
+Match the answer with what I discussed in the lecture.
+
+Task 3
+------
+
+Let's test the run-time behaviour of this program (some assessments
+will require you to be time efficient, in addition to being correct).
+
+First type ":set +s". This is to tell the ghci Haskell interpreter to
+print run time and memory consumption.
+
+At this point you may wish to also type ":help" to see what is
+available. Be proactive, and explore the possibilities.
+
+Always be proactive. You will learn much more on your own in this
+module than from me or the demonstrators. But of course you will learn
+a lot from us.
+
+Try, think, try again, ask yourself, think again, ask the
+demonstrators, ask me, ask your colleagues, and then think again.
+
+Here is the task. We what to sort very large lists.
+
+Type f [1..100000] in the ghci prompt. This sorts (the already sorted)
+list of integers from 1 to 100000. How fast was this? Try larger
+lists, until either memory or time are exhausted. Use ctrl-C to abort.
+
+Evaluate f (reverse [1..100000]). Test timing and memory consumption
+with larger lists.
+
+Task 4
+------
+
+This was boring. We sorted a sorted list, and a reversed sorted list.
+
+Here are some other kinds of lists to tests timing and memory
+consumption.
+
+   [1..1000] ++ reverse [1..1000]
+   <your own ideas>
+
+Test them.
+
+Task 5
+------
+
+For the brave. We want to test experimentally that the average
+run-time of quick-sort is n*log(n), where n is the length of the
+list. This was explained theoretically in the module Foundations of
+Computer Science. Does practice match theory here? Let's see.
+
+Here is one way to do it.
+
+Write a function
+
+  permutations :: [a] -> [[a]]
+
+that given a list, generates the list of lists that arises by
+producing all possible permutations of the given list.
+
+Hint: Either think, or cheat using google, or both. There are
+thousands of web pages that discuss how to compute permutations in
+Haskell (and in all existing programming languages).
+
+For a list of length n, we should get n! (n factorial) many lists.
+
+Experiment: evaluate length(permutations [1..5]). This should give
+120, because 5! = 120.
+
+Then use the function map (like that of ocaml) to sort each of the
+possible permutations with our quick-sort function f.
+
+let n = 10 in map f (permutations [1..n])
+
+Here the time should be 10! * 10 * log(10), up to a constant factor.
+
+Task: figure out, experimentally, the constant factor.
+
+Is this really constant? This means that it should be (more or less,
+in practice) independent of n.
+
+Answer this question experimentally.
+
+Hint: To avoid printing a large list of lists xss during your
+experiments, you can do
+
+      length (map length xss)
+
+Additional task: If you do only
+
+      length xss
+
+then laziness will get on your way, and you may actually a
+shorter run-time.
+
+Feel free to approach this (or any unassessed) exercise in groups. You
+should learn a lot by discussing this among yourselves.

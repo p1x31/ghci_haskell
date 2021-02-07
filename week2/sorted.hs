@@ -1,0 +1,1 @@
+sorted xs = and [x <= y((x,y) <- pairs xs]
