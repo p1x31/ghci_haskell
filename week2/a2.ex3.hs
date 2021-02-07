@@ -1,3 +1,4 @@
+n :: Int
 n = a `div` length xs
   where
         a = 10
